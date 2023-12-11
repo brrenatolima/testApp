@@ -6,6 +6,6 @@ interface Props {
 }
 export default function Selected({text} : Props) {
     return (
-        <BoxCustom bg="gray.700" children={<Text >{text}</Text>} width="100%" p="4" shadow={5} />
+        <BoxCustom bg="gray.500" children={<Text >{text}</Text>} width="100%" p="4" shadow={5} />
     )
 }
