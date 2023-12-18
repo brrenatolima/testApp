@@ -10,9 +10,8 @@ interface Props {
 
 export default function Button ( {content, variation = 'primary', icon, handleClick}: Props) {
     return (
-        <NativeButton bg={`${variation}.100`} mt={3} onPress={handleClick} endIcon={icon} >
+        <NativeButton bg={`${variation}.100`} mt={3} onPress={handleClick} endIcon={icon} testID="button-test" >
             {content}
-            
         </NativeButton>
     )
 }

@@ -14,7 +14,6 @@ export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isWaiting, setIsWaiting] = React.useState(false);
-    const [isLogin, setIsLogin] = useState(true);
 
     const handleLogin = () => {
       setUsername(username.toLocaleLowerCase());
@@ -39,34 +38,13 @@ export default function Login() {
        setIsWaiting(false);
     }
 
-    const handleRegister = () => {
-      setUsername(username.toLocaleLowerCase());
-      setIsWaiting(true);
-     
-      register({username, password})
-          .then(function (response) {
-            console.log(response);
-            handleLogin();
-          })
-          .catch(function (error) {
-            console.error("error", error);
-            console.error(username);
-            console.error(password);
-          });
-       setIsWaiting(false);
-    }
     
     const [show, setShow] = React.useState(false);
 
     return (
             <Flex p={8} flex={1} justifyContent='center' alignItems='center'>
-        {
-          isLogin ?
+      
             <Heading>Login</Heading>
-            :
-            <Heading>Criar conta</Heading>
-        }
-
                 <Input 
                   mt={"1.5"}
                   w={{ base: "90%", md: "25%" }} 
@@ -90,24 +68,8 @@ export default function Login() {
                 />
 
                 <Flex width={'100%'}>
-                  {
-                    isLogin ?
                     <Button  content="Login" handleClick={handleLogin} icon={ isWaiting ? <Icon as={AntDesign} size={5} name={"loading"} mr="2" color="muted.400" /> : <Icon as={AntDesign} size={5} mr="2" color="muted.400" name={"login"} />} />
-                    :
-                    <Button  content="Registrar" handleClick={handleRegister} icon={ isWaiting ? <Icon as={AntDesign} size={5} name={"loading"} mr="2" color="muted.400" /> : <Icon as={AntDesign} size={5} mr="2" color="muted.400" name={"login"} />} />
-                  }
-                    
                 </Flex>
-
-                {
-                  isLogin ?
-                  <Link marginTop={"20%"} _text={{textDecoration:"none"}} onPress={()=> {setIsLogin(!isLogin)}}>Não tem conta? Crie uma agora mesmo!</Link>
-                  :
-                  <Link marginTop={"20%"} _text={{textDecoration:"none"}} onPress={()=> {setIsLogin(!isLogin)}}>Já tem conta? Faça login!</Link>
-                
-                }
-
-                
             </Flex>
     );
 }

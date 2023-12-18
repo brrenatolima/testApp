@@ -2,11 +2,28 @@ import { Flex, Heading, Icon, Input, Link, Pressable } from "native-base";
 import React, { useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import Button from "../../components/Button";
+import { login, register } from "../../services/auth";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Register() {
     const [show, setShow] = React.useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const navigator = useNavigation();
+
+    const handleRegister = () => {
+      setUsername(username.toLocaleLowerCase());
+     console.log("antes do register")
+      register({username, password})
+          .then(function (response) {
+            login({username, password});
+          })
+          .catch(function (error) {
+            console.error("error", error);
+            console.error(username);
+            console.error(password);
+          });
+    }
 
     return (
             <Flex p={8} flex={1} justifyContent='center' alignItems='center'>
@@ -40,10 +57,10 @@ export default function Register() {
                 />
 
                 <Flex width={'100%'}>
-                    <Button  content="Login" handleClick={()=> {console.log("Criar conta")}}/>
+                    <Button  content="Registrar" handleClick={()=> {handleRegister()}}/>
+                    {/* <Button content="Esqueci minha senha" handleClick={()=> navigator.navigate('Reset')}/> */}
                 </Flex>
 
-                <Link marginTop={"20%"} _text={{textDecoration:"none"}} onPress={()=> {console.log("clicou")}}>Não tem conta? Crie uma agora mesmo!</Link>
                 
             </Flex>
     );
