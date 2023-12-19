@@ -10,7 +10,8 @@ export type RootStackParamList = {
   
 export type IUser = {
     name : string;
-    email: string;
+    email: string | null;
+    password: string;
     token : string | null;
 }
 type IUserContext = {

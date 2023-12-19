@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/screens/Home';
 import Albums from './src/screens/Albums';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { login } from './src/services/auth';
 
 
 export default function App() {
@@ -17,18 +18,25 @@ export default function App() {
   const Stack = createStackNavigator();
 
   useEffect(() => {
-    console.log("user", user);
     if(user != null){
-      storage.set("user", JSON.stringify(user))
+      storage.set("user", JSON.stringify(user));
     }
   }, [user]);
 
   useEffect(() => {
     const userDb = storage.getString("user");
     if (userDb) {
-      setUser(JSON.parse(userDb));
+      setUser(JSON.parse(userDb)); 
       
-    }
+      login({name: userDb.name, password: userDb.password})
+        .then((res) => {})
+        .catch((erro) => {
+          if(erro.message.indexOf("401") >= 0){
+            // Usuario não autorizado - apaga dados locais
+            storage.delete("user");
+          }
+        })
+    }   
   }, []);
 
   return (

@@ -5,20 +5,19 @@ import Button from "../../components/Button";
 import { login, register } from "../../services/auth";
 import { useNavigation } from "@react-navigation/native";
 import { Alert } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../context/user";
 
 export default function Register() {
     const [show, setShow] = React.useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const navigator = useNavigation();
+    const navigator = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-    const handleRegister = () => {
-      setUsername(username.toLocaleLowerCase());
-     console.log("antes do register")
+    const handleRegister = async () => {
+     await setUsername(username.toLocaleLowerCase());
       register({username, password})
           .then(function (response) {
-            console.log("depois do register");
-            
             login({username, password});
             navigator.navigate('Wrapper');
           })
@@ -60,7 +59,6 @@ export default function Register() {
 
                 <Flex width={'100%'}>
                     <Button  content="Registrar" handleClick={()=> {handleRegister()}}/>
-                    {/* <Button content="Esqueci minha senha" handleClick={()=> navigator.navigate('Reset')}/> */}
                 </Flex>
 
                 

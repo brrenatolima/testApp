@@ -9,35 +9,45 @@ import { getAlbums, getStories } from "../../services/album";
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import AlbumContext, { albumsContext, favAlbums } from "../../context/album";
+import { login } from "../../services/auth";
 
 export default function Home() {
 
     const userData = useContext(UserContext);
+    const albumData = useContext(AlbumContext);
+    
     const [selectedAlbum, setSelectedAlbum] = useState("");
     const [selectedId, setSelectedId] = useState("0");
-    const [albums, setAlbums] = useState();
+    const [albums, setAlbums] = useState([] as any);
     const [stories, setStories] = useState();
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-
-    // useEffect(() => {
-    //     if (selectedAlbum) {
-    //         navigation.navigate("Albums", {id: selectedId});
-    //     }
-    // }, [selectedAlbum]);
 
     useEffect(() => {
         if (selectedId !== "0" && albums) {
             const album = albums.find((element:any) => element.id === selectedId);
-            // console.log(album);            
             navigation.navigate("Albums", { album: album });
         }        
     }, [selectedId]);
 
     useEffect(() => {
-        console.log(userData);
+        if(albums && albums != undefined){
+            console.log("preencheu os albums");
+            console.log("albums", albums);
+            if(albumsContext.length !== albums.length){
+                albumsContext.splice(0, albumsContext.length)
+                albumsContext.push(...albums);
+                console.log("Preencheu os albums do contexto");   
+            }
+            console.log("albums do contexto", albumsContext);         
+        }
+    }, [albums]); 
+
+    useEffect(() => {
         if (userData && userData.user && userData.user.token) {
             getAlbums(userData.user.token).then(response => setAlbums(response.data)).catch(e => console.log("erro", e));
-            getStories(userData.user.token).then(response => setStories(response.data)).catch(e => console.log("erro", e));
+            getStories(userData.user.token).then(response => setStories(response.data)).catch(e => console.log("erro", e));      
+            console.log(userData);
         }
     }, []);
 

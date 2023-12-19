@@ -6,7 +6,7 @@ import { Alert  } from "react-native";
 
 
 import { Ionicons, AntDesign } from '@expo/vector-icons';
-import { login, register } from "../../services/auth";
+import { login } from "../../services/auth";
 
 export default function Login() {
 
@@ -18,14 +18,12 @@ export default function Login() {
     const handleLogin = () => {
       setUsername(username.toLocaleLowerCase());
       setIsWaiting(true);
-     
       login({username, password})
           .then(function (response) {
-            console.log(response);
-            userData.setUser({name: username, email: password, token: response.data.token});
+            userData.setUser({name: username, password:password, email: null, token: response.data.token});
             console.log(userData.user?.token)
           })
-          .catch(function (error) {
+          .catch(function (error) {           
             Alert.alert("Error", error.message);
           });
        setIsWaiting(false);
