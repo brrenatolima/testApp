@@ -26,9 +26,11 @@ export default function Home() {
     // }, [selectedAlbum]);
 
     useEffect(() => {
-        if (selectedId !== "0") {
-            navigation.navigate("Albums", { id: selectedId });
-        }
+        if (selectedId !== "0" && albums) {
+            const album = albums.find((element:any) => element.id === selectedId);
+            // console.log(album);            
+            navigation.navigate("Albums", { album: album });
+        }        
     }, [selectedId]);
 
     useEffect(() => {
