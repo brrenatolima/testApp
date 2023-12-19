@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Button from "../../components/Button";
 import { login, register } from "../../services/auth";
 import { useNavigation } from "@react-navigation/native";
+import { Alert } from "react-native";
 
 export default function Register() {
     const [show, setShow] = React.useState(false);
@@ -16,12 +17,13 @@ export default function Register() {
      console.log("antes do register")
       register({username, password})
           .then(function (response) {
+            console.log("depois do register");
+            
             login({username, password});
+            navigator.navigate('Wrapper');
           })
           .catch(function (error) {
-            console.error("error", error);
-            console.error(username);
-            console.error(password);
+            Alert.alert(error.message);
           });
     }
 

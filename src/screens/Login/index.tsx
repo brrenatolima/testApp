@@ -22,18 +22,11 @@ export default function Login() {
       login({username, password})
           .then(function (response) {
             console.log(response);
-            userData.setUser({
-              name: username,
-              email: password,
-              token: response.data.token
-            });
+            userData.setUser({name: username, email: password, token: response.data.token});
             console.log(userData.user?.token)
           })
           .catch(function (error) {
-            console.error("error", error);
-            console.error(username);
-            console.error(password);
-            Alert.alert("Error", "usuário ou senha inválidos");
+            Alert.alert("Error", error.message);
           });
        setIsWaiting(false);
     }
