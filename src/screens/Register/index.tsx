@@ -18,14 +18,16 @@ export default function Register() {
      await setUsername(username.toLocaleLowerCase());
       register({username, password})
           .then(function (response) {
-            try {
-              login({username, password}).then(function (response) {
-                navigator.navigate('Home');
-              });
+             console.log(response);
+             navigator.navigate("Wrapper");
+            // try {
+            //   login({username, password}).then(function (response) {
+            //     navigator.navigate('Home');
+            //   });
               
-            } catch (error : any) {
-              Alert.alert(error.message);
-            }
+            // } catch (error : any) {
+            //   Alert.alert(error.message);
+            // }
           })
           .catch(function (error) {
             Alert.alert(error.message);
