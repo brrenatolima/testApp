@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { createContext } from "react";
 import { MMKV } from "react-native-mmkv";
 
@@ -6,6 +7,7 @@ export type RootStackParamList = {
     Wrapper: { id: number } | undefined;
     Home: { id: number } | undefined;
     Albums: { id: number } | undefined;
+    Artist: { id : string, name : string, img : string } | undefined;
   };
   
 export type IUser = {
@@ -22,6 +24,7 @@ type IUserContext = {
 export const storage = new MMKV({
     id: 'movieapp'
   });
+
 
 const UserContext = createContext<IUserContext>({ user: null, setUser: () => {} });
 

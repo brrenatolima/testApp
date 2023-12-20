@@ -7,9 +7,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/screens/Home';
 import Albums from './src/screens/Albums';
+import Artist from './src/screens/Artist';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { login } from './src/services/auth';
-
 
 export default function App() {
 
@@ -48,7 +48,8 @@ export default function App() {
             <Stack.Navigator initialRouteName='Wrapper' screenOptions={{ headerShown: false }}>
               <Stack.Screen name='Wrapper' component={Wrapper} />
               <Stack.Screen name='Home' component={Home} />
-              <Stack.Screen name='Albums' component={Albums} options={{headerShown: true}} />
+              <Stack.Screen name='Albums' component={Albums} options={{headerShown: false}} />
+              <Stack.Screen name='Artist' component={Artist} options={{headerShown: true, title: "Artista"}} />
             </Stack.Navigator>
           </NavigationContainer>
         </GestureHandlerRootView>

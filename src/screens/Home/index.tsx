@@ -1,4 +1,4 @@
-import { Flex, HStack, IconButton, Text } from "native-base";
+import { Box, Flex, HStack, IconButton, Text } from "native-base";
 import { useContext, useEffect, useState } from "react";
 import UserContext, { RootStackParamList, storage } from "../../context/user";
 import { FlatList } from "react-native";
@@ -26,20 +26,17 @@ export default function Home() {
     useEffect(() => {
         if (selectedId !== "0" && albums) {
             const album = albums.find((element:any) => element.id === selectedId);
-            navigation.navigate("Albums", { album: album });
+            navigation.navigate("Albums", { album: album });           
         }        
+        
     }, [selectedId]);
 
     useEffect(() => {
         if(albums && albums != undefined){
-            console.log("preencheu os albums");
-            console.log("albums", albums);
             if(albumsContext.length !== albums.length){
                 albumsContext.splice(0, albumsContext.length)
                 albumsContext.push(...albums);
-                console.log("Preencheu os albums do contexto");   
             }
-            console.log("albums do contexto", albumsContext);         
         }
     }, [albums]); 
 
@@ -81,14 +78,13 @@ export default function Home() {
                 </HStack>
             </HStack>
 
-            {/* Stories */}
-            <Text style={{ color: "#FFF" }} fontSize={'xs'} alignSelf={"flex-start"}>Artistas mais ouvidos</Text>
-
-            <FlatList style={{ marginTop: "5%" }} horizontal={true} data={stories} renderItem={({ item }) => <Storie name={item.name} img={item.image} />} />
-
-            <Text style={{ color: "#FFF" }} fontSize={'xs'} alignSelf={"flex-start"}>Albuns mais ouvidos</Text>
-
-
+            <Box h={"3xs"}>
+                {/* Stories */}
+                <Text style={{ color: "#FFF" }} fontSize={'xs'} alignSelf={"flex-start"}>Artistas mais ouvidos</Text>
+                <FlatList style={{ marginTop: "5%" }} horizontal={true} data={stories} renderItem={({ item }) => <Storie id={item.id} name={item.name} img={item.img} />} />
+            </Box>
+            
+            <Text style={{ color: "#FFF" }} mt={"12"} fontSize={'xs'} alignSelf={"flex-start"}>Albuns mais ouvidos</Text>
             {/* Albuns */}
             <FlatList horizontal={true}
                 data={albums}

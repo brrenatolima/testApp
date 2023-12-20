@@ -1,7 +1,6 @@
 import { createContext, useState } from "react";
 import { getAlbums } from "../services/album";
 
-
 export type IAlbum = {
     id: string;
     album : string;
@@ -26,7 +25,6 @@ export function removeFavAlbum(id: string) {
 }
 
 export const albumsContext = [];
-
 
 const AlbumContext = createContext<IAlbumContext | null>({album : null, setAlbum : () => {}});
 

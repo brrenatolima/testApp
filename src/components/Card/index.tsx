@@ -2,7 +2,7 @@ import { Container, Image, Card as CardNative } from "native-base";
 import React, { useEffect, useState } from "react";
 import { Touchable, TouchableOpacity } from "react-native";
 import { Ionicons, AntDesign } from '@expo/vector-icons';
-import { IAlbum, addFavAlbum, favAlbums } from "../../context/album";
+import { IAlbum, addFavAlbum, favAlbums, removeFavAlbum } from "../../context/album";
 
 
 interface Props{
@@ -22,15 +22,15 @@ export default function Card({img, music, id, album, setSelectedAlbum, setSelect
             addFavAlbum(id);
             setIsFavorite(true);
         } else {
-            setIsFavorite(false)
+            removeFavAlbum(id);
+            setIsFavorite(false);
         }
     }
 
-    const favoritesAlbums = favAlbums;
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        if(favoritesAlbums.find((elem : IAlbum) => elem.id === id)){
+        if(favAlbums.find((elem : IAlbum) => elem.id === id)){
             setIsFavorite(true);
         }
     } , [])
