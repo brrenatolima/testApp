@@ -26,6 +26,13 @@ export function removeFavAlbum(id: string) {
 
 export const albumsContext = [];
 
+export const musicsDemo = [
+    {id : '1', name : 'Musica 01'},
+    {id : '2', name : 'Musica 02'},
+    {id : '3', name : 'Musica 03'},
+    {id : '4', name : 'Musica 04'},
+]
+
 const AlbumContext = createContext<IAlbumContext | null>({album : null, setAlbum : () => {}});
 
 export default AlbumContext;
