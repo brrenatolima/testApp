@@ -19,7 +19,7 @@ export default function Register() {
       register({username, password})
           .then(function (response) {
              console.log(response);
-             navigator.navigate("Wrapper");
+             Alert.alert("Conta criada com sucesso!", "Faça login para continuar");
             // try {
             //   login({username, password}).then(function (response) {
             //     navigator.navigate('Home');
